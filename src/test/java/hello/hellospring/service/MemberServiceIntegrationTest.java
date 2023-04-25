@@ -4,18 +4,23 @@ import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import static org.assertj.core.api.Assertions.*;
 
-class MemberServiceTest {
-
+@SpringBootTest
+@Transactional
+class MemberServiceIntegrationTest {
+    @Autowired
     MemberService memberService;
-    MemoryMemberRepository memberRepository;
+    @Autowired
+    MemberRepository memberRepository;
 
     @BeforeEach
     public void beforeEach() {
@@ -23,10 +28,10 @@ class MemberServiceTest {
         memberService = new MemberService(memberRepository);
     }
 
-    @AfterEach
-    public void afterEach() {
-        memberRepository.clearStore();
-    }
+//    @AfterEach
+//    public void afterEach() {
+//        memberRepository.clearStore();
+//    }
 
     @Test
     void 회원가입() {
