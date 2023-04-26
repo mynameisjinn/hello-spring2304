@@ -3,9 +3,9 @@ package hello.hellospring.service;
 import hello.hellospring.repository.JpaMemberRepository;
 import hello.hellospring.repository.MemberRepository;
 import jakarta.persistence.EntityManager;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 
 @Configuration
 public class SpringConfig {
@@ -15,16 +15,20 @@ public class SpringConfig {
 //    public SpringConfig(DataSource dataSource) {
 //        this.dataSource = dataSource;
 //    }
+    private final MemberRepository memberRepository;
 
-    private EntityManager em;
-
-    public SpringConfig(EntityManager em) {
+    public SpringConfig(MemberRepository memberRepository, EntityManager em) {
+        this.memberRepository = memberRepository;
         this.em = em;
     }
 
+    private EntityManager em;
+
     @Bean
     public MemberService memberService() {
-        return new MemberService(memberRepository());
+
+        return new MemberService(memberRepository);
+//        return new MemberService(memberRepository());
     }
 
     @Bean
